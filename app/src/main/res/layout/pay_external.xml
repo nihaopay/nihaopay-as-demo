@@ -87,10 +87,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:onClick="pay"
-            android:text="alipay(支付宝)"
+            android:onClick="alipay"
+            android:text="aliPay(支付宝)"
             tools:ignore="HardcodedText" />
-        
+
+        <Button
+            android:id="@+id/unionpay"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="unionpay"
+            android:text="unionPay(银联)"
+            tools:ignore="HardcodedText" />
+
     </LinearLayout>
 
 </ScrollView>

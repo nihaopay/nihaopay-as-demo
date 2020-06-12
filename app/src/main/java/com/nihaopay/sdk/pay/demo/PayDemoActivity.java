@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import com.nihaopay.sdk.R;
+import com.nihaopay.sdk.pay.Logger;
 import com.nihaopay.sdk.pay.NihaopayResult;
 import com.nihaopay.sdk.pay.NihaopayTask;
 
@@ -78,7 +79,7 @@ public class PayDemoActivity extends FragmentActivity {
 	 * call alipay sdk pay. 调用SDK支付
 	 *
 	 */
-	public void pay(View v, String payType) {
+	public void pay(View v, final String payType) {
 		if (TextUtils.isEmpty(Config.TOKEN)) {
 			new AlertDialog.Builder(this)
 					.setTitle("Warn")
@@ -104,14 +105,20 @@ public class PayDemoActivity extends FragmentActivity {
 				// Create PayTask object
 				NihaopayTask nhpTask = new NihaopayTask(PayDemoActivity.this);
 				// call payment api, got payment result
-				String result = nhpTask.pay(payInfo, Config.TOKEN);
+				String result = nhpTask.pay(payInfo, Config.TOKEN, "https://api.nihaopay.com/v1.2/transactions/apppay");
 
-				if(payInfo.equals("alipay")){
+				if(payType.equals("alipay")){
 					Message msg = new Message();
 					msg.what = SDK_CHECK_FLAG;
 					msg.obj = result;
 					mHandler.sendMessage(msg);
 				}
+
+				if(payType.equals("wechatpay")){
+					Logger.info("返回API结果：" + result);
+				}
+
+
 			}
 		};
 
@@ -164,6 +171,10 @@ public class PayDemoActivity extends FragmentActivity {
 
 	public void unionpay(View v){
 		pay(v, "unionpay");
+	}
+
+	public void wechatpay(View v){
+		pay(v, "wechatpay");
 	}
 
 	/**

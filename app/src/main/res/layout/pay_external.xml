@@ -100,6 +100,15 @@
             android:text="unionPay(银联)"
             tools:ignore="HardcodedText" />
 
+        <Button
+            android:id="@+id/wechatpay"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="wechatpay"
+            android:text="wechatPay(微信)"
+            tools:ignore="HardcodedText" />
+
     </LinearLayout>
 
 </ScrollView>

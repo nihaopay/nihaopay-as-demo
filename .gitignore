@@ -2,7 +2,6 @@
 *.apk
 *.ap_
 
-nihaopay-android-sdk-*.jar
 
 # files for the dex VM
 *.dex

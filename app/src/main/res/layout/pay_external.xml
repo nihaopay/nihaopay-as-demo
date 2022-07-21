@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:onClick="alipay"
-            android:text="aliPay(支付宝)"
+            android:text="AliPay(支付宝)"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:onClick="unionpay"
-            android:text="unionPay(银联)"
+            android:text="UnionPay(银联)"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -106,7 +106,16 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:onClick="wechatpay"
-            android:text="wechatPay(微信)"
+            android:text="WechatPay(微信)"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/aps"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="aps"
+            android:text="APlus(A+)"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

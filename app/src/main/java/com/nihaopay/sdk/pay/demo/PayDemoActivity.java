@@ -127,6 +127,47 @@ public class PayDemoActivity extends FragmentActivity {
 		payThread.start();
 	}
 
+	public void payAPS() {
+		if (TextUtils.isEmpty(Config.TOKEN)) {
+			new AlertDialog.Builder(this)
+					.setTitle("Warn")
+					.setMessage("Need config API TOKEN")
+					.setPositiveButton("Confirm",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialoginterface, int i) {
+									//
+									finish();
+								}
+							}).show();
+			return;
+		}
+
+		final String payInfo = getPayAPSInfo("http://www.nihaopay.com", "1", "USD");
+
+		Runnable payRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println("send info : "+ payInfo);
+				// Create PayTask object
+				NihaopayTask nhpTask = new NihaopayTask(PayDemoActivity.this);
+				// call payment api, got payment result
+				String result = nhpTask.pay(payInfo, Config.TOKEN, "https://api.nihaopay.com/v1.2/transactions/aplus");
+
+				Message msg = new Message();
+				msg.what = SDK_CHECK_FLAG;
+				msg.obj = result;
+				mHandler.sendMessage(msg);
+
+			}
+		};
+
+		// Must asynchronously invoked
+		Thread payThread = new Thread(payRunnable);
+		payThread.start();
+	}
+
 //	/**
 //	 * check whether the device has authentication alipay account.
 //	 * 查询终端设备是否存在支付宝认证账户
@@ -177,6 +218,10 @@ public class PayDemoActivity extends FragmentActivity {
 		pay(v, "wechatpay");
 	}
 
+	public void aps(View v) {
+		payAPS();
+	}
+
 	/**
 	 * Assemble pay information
 	 *
@@ -204,7 +249,33 @@ public class PayDemoActivity extends FragmentActivity {
 
 		orderInfo += "&vendor=" +  payType;
 
+		orderInfo += "&ostype=ANDROID";
 
+
+
+		return orderInfo;
+	}
+
+	public String getPayAPSInfo(String ipn_url,  String amount, String currency) {
+
+		String orderInfo = "amount="  + amount ;
+
+		orderInfo += "&currency=" +  currency ;
+
+		// merchant order ID
+		orderInfo += "&reference=" +  getOutTradeNo() ;
+
+		// IPN url
+		orderInfo += "&ipn_url=" +  ipn_url ;
+
+		String note = "it is test";
+		orderInfo += "&note=" +  note ;
+		String description = "毛线裤两件";
+		orderInfo += "&description=" +  description ;
+
+		orderInfo += "&terminal=APP";
+
+		orderInfo += "&ostype=ANDROID";
 
 		return orderInfo;
 	}
